@@ -2,21 +2,24 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LongPressButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+namespace ArcherWithSpine.UI
 {
-   [SerializeField] private Button MoveButton;
-
-    private bool isPressing;
-        
-    private void FixedUpdate()
+    public class LongPressButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        if(isPressing)
-            MoveButton.onClick.Invoke();
-    }
-        
-    public void OnPointerDown(PointerEventData eventData) => 
-        isPressing = true;
+        [SerializeField] private Button MoveButton;
 
-    public void OnPointerUp(PointerEventData eventData) => 
-        isPressing = false;
+        private bool isPressing;
+        
+        private void FixedUpdate()
+        {
+            if(isPressing)
+                MoveButton.onClick.Invoke();
+        }
+        
+        public void OnPointerDown(PointerEventData eventData) => 
+            isPressing = true;
+
+        public void OnPointerUp(PointerEventData eventData) => 
+            isPressing = false;
+    }
 }

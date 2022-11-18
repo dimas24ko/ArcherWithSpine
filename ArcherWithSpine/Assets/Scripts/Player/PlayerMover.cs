@@ -1,50 +1,52 @@
 using System;
-using DG.Tweening;
 using UnityEngine;
 
-public class PlayerMover : MonoBehaviour
+namespace ArcherWithSpine.Player
 {
-        [SerializeField] private Transform player;
-        [SerializeField] private Rigidbody2D rigidbody;
-        
-        [SerializeField] private float movingSpeed;
-        [SerializeField] private float jumpSpeed;
-        [SerializeField] private float jumpPower;
-
-        public Action Moved;
-        public Action Jumped;
-        
-        public void RightMove()
+        public class PlayerMover : MonoBehaviour
         {
-                if (player.localScale.x < 0) 
-                        ChangeDirection();
-
-                transform.position = new Vector3(transform.position.x + movingSpeed, transform.position.y, transform.position.z);
-                
-                Moved?.Invoke();
-        }
+                [SerializeField] private Transform player;
+                [SerializeField] private Rigidbody2D rigidbody;
         
-        public void LeftMove()
-        {
-                if (player.localScale.x > 0) 
-                        ChangeDirection();
+                [SerializeField] private float movingSpeed;
+                [SerializeField] private float jumpSpeed;
+                [SerializeField] private float jumpPower;
 
-                transform.position = new Vector3(transform.position.x - movingSpeed, transform.position.y, transform.position.z);
-                
-                Moved?.Invoke();
-        }
+                public Action Moved;
+                public Action Jumped;
+        
+                public void RightMove()
+                {
+                        if (player.localScale.x < 0) 
+                                ChangeDirection();
 
-        public void Jump()
-        {
-                rigidbody.AddForce(new Vector2(0, jumpPower));
+                        transform.position = new Vector3(transform.position.x + movingSpeed, transform.position.y, transform.position.z);
                 
-                //Todo realization with DoTween
-                /*var targetPosition = new Vector3(player.position.x, player.position.y, player.position.z);
+                        Moved?.Invoke();
+                }
+        
+                public void LeftMove()
+                {
+                        if (player.localScale.x > 0) 
+                                ChangeDirection();
+
+                        transform.position = new Vector3(transform.position.x - movingSpeed, transform.position.y, transform.position.z);
+                
+                        Moved?.Invoke();
+                }
+
+                public void Jump()
+                {
+                        rigidbody.AddForce(new Vector2(0, jumpPower));
+                
+                        //Todo realization with DoTween
+                        /*var targetPosition = new Vector3(player.position.x, player.position.y, player.position.z);
                 player.DOJump(targetPosition, jumpPower, 1, jumpSpeed);*/
                 
-                Jumped?.Invoke();
-        }
+                        Jumped?.Invoke();
+                }
 
-        private void ChangeDirection() => 
-                player.localScale = new Vector3(player.localScale.x * -1, player.localScale.y, player.localScale.z);
+                private void ChangeDirection() => 
+                        player.localScale = new Vector3(player.localScale.x * -1, player.localScale.y, player.localScale.z);
+        }
 }
